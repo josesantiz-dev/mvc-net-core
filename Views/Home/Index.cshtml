@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<div class="col-md-12">
+    <p>Hello <a href="https://docs.telerik.com/kendo-ui/intro/first-steps">Kendo UI for jQuery</a>!
+      This is version <strong id="kendoVersion"></strong>.</p>
+
+    <div id="ordersChart"></div>
+
+    <p>
+      <button id="clearGridFilter">Show all countries</button>
+    </p>
+
+    <div id="ordersGrid"></div>
+
+    <div id="chart" style="width: 400px; height: 600px"></div>
+
+        <div id="grid"></div>
+
+        <div id="example">
+    <div class="demo-section k-content wide">
+        <div id="chart"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+ function createChart() {
+            $("#chart").kendoChart({
+                title: {
+                    text: "Site Visitors Stats \n /thousands/"
+                },
+                legend: {
+                    visible: false
+                },
+                seriesDefaults: {
+                    type: "bar"
+                },
+                series: [{
+                    name: "Total Visits",
+                    data: [56000, 63000, 74000, 91000, 117000, 138000]
+                }, {
+                    name: "Unique visitors",
+                    data: [52000, 34000, 23000, 48000, 67000, 83000]
+                }],
+                valueAxis: {
+                    max: 140000,
+                    line: {
+                        visible: false
+                    },
+                    minorGridLines: {
+                        visible: true
+                    },
+                    labels: {
+                        rotation: "auto"
+                    }
+                },
+                categoryAxis: {
+                    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                    majorGridLines: {
+                        visible: false
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        createChart();
+        $(document).bind("kendo:skinChange", createChart);
+
+            $("#grid").kendoGrid({
+                columns: [{
+                    field: "FirstName",
+                    title: "First Name"
+                },
+                {
+                    field: "LastName",
+                    title: "Last Name"
+                }],
+                dataSource: {
+                    data: [{
+                        FirstName: "Joe",
+                        LastName: "Smith"
+                    },
+                    {
+                        FirstName: "Jane",
+                        LastName: "Smith"
+                    }]
+                }
+            });
+
+
+    $("#chart").kendoChart({
+    title: {
+         text: "Kendo Chart Example"
+    },
+    series: [
+         { name: "Example Series", data: [200, 450, 300, 125] }
+    ]
+});
+</script>
+
+
+
+
+@model Persona  //Objeto Modelo
+<div class="container">
+    <form asp-action="SetPersona" asp-controller="Home" method="post"> <!-- asp_action = Metodo; asp-controller = Controlador-->
+        <div class="form-group col-md-6">
+            <label>Nombres</label>
+            <input type="text" asp-for="Nombres" class="form-control">
+            <span asp-validation-for="Nombres" class="label label-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Apellidos</label>
+            <input type="text" asp-for="Apellidos" class="form-control">
+            <span asp-validation-for="Apellidos" class="label label-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label>DNI</label>
+            <input type="text" asp-for="DNI" class="form-control">
+            <span asp-validation-for="DNI" class="label label-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Correo</label>
+            <input type="text" asp-for="Correo" class="form-control">
+            <span asp-validation-for="Correo" class="label label-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Estado</label>
+            <input type="checkbox" asp-for="EstaActivo" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Fecha de Nacimiento</label>
+            <input asp-for="FechaNacimiento" class="form-control">
+            <span asp-validation-for="FechaNacimiento" class="label label-danger"></span>
+        </div>
+                <div class="form-group col-md-6">
+            <label>Edad</label>
+            <input asp-for="Edad" class="form-control">
+            <span asp-validation-for="Edad" class="label label-danger"></span>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-primary">GUARDAR</button>
+        </div>
+    </form>
+</div>
